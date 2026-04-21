@@ -14,9 +14,27 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { motion } from 'motion/react';
+import { useState } from 'react';
 
 export default function App() {
   const EXTERNAL_URL = "https://travelai.top/";
+  const RECOMMENDATION_IMAGE_URL =
+    "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=2070";
+  const RECOMMENDATION_IMAGE_FALLBACK =
+    "data:image/svg+xml;utf8," +
+    encodeURIComponent(`
+      <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+        <defs>
+          <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0%" stop-color="#2563EB" />
+            <stop offset="100%" stop-color="#0F172A" />
+          </linearGradient>
+        </defs>
+        <rect width="1600" height="900" fill="url(#bg)" />
+        <text x="80" y="760" fill="white" font-size="80" font-family="Inter, Arial, sans-serif" font-weight="700">Yosemite, USA</text>
+      </svg>
+    `);
+  const [recommendationImageSrc, setRecommendationImageSrc] = useState(RECOMMENDATION_IMAGE_URL);
 
   return (
     <div className="min-h-screen bg-white font-sans text-slate-900 selection:bg-blue-100 selection:text-blue-900">
@@ -89,10 +107,14 @@ export default function App() {
             >
               <div className="relative aspect-square md:aspect-video rounded-[2rem] overflow-hidden shadow-2xl border-8 border-white">
                 <img 
-                  src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=2070" 
+                  src={recommendationImageSrc}
                   alt="Scenic landscape" 
                   className="w-full h-full object-cover scale-110 hover:scale-100 transition-transform duration-1000"
                   referrerPolicy="no-referrer"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
+                  onError={() => setRecommendationImageSrc(RECOMMENDATION_IMAGE_FALLBACK)}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent" />
                 <div className="absolute bottom-10 left-10 text-white">

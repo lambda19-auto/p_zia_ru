@@ -15,11 +15,11 @@ import {
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useState } from 'react';
+import recommendationImage from '../picture-1.jpg';
 
 export default function App() {
   const EXTERNAL_URL = "https://travelai.top/";
-  const RECOMMENDATION_IMAGE_URL =
-    "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=2070";
+  const RECOMMENDATION_IMAGE_URL = recommendationImage;
   const RECOMMENDATION_IMAGE_FALLBACK =
     "data:image/svg+xml;utf8," +
     encodeURIComponent(`
